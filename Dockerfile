@@ -18,4 +18,4 @@ RUN pip3 install --user --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD python3 teraboxbot.py
+CMD python3 TeraboxBot.py
