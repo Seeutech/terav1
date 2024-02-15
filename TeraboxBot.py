@@ -8,7 +8,7 @@ from terabox import getUrl
 import pymongo
 import asyncio
 
-Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
+Path = "downloads"
 # Video Will BE Downloaded Here
 
 bot = Client(
