@@ -8,7 +8,7 @@ from terabox import getUrl
 import pymongo
 import time
 
-Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
+Path = "/root/TeraboxBOT/TeraboxLinkToVideo/Downloads"
 # Video Will BE Downloaded Here
 
 bot = Client(
