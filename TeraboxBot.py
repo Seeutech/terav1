@@ -154,8 +154,7 @@ async def broadcast_message(bot, message):
         try:
             await bot.send_message(user['user_id'], msg)
         except Exception as e:
-            print(f"Failed to send broadcast message to user {
-                  user['user_id']}: {e}")
+            print(f"Failed to send broadcast message to user {user['user_id']}: {e}")
 
     await message.reply_text("Broadcast sent successfully.")
 
