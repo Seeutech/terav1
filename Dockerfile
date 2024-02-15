@@ -8,6 +8,7 @@ ENV BOT $HOME/terabox
 
 RUN useradd -m $USER
 RUN mkdir -p $BOT
+RUN mkdir /home/botx/terabox/downloads/
 RUN chown $USER:$USER $BOT
 USER $USER
 WORKDIR $BOT
