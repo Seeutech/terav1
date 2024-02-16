@@ -10,8 +10,8 @@ import time
 # Video Will BE Downloaded Here
 
 bot = Client(
-    "POMPOMsjdBOT",
-    bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM",
+    "POMPomBottt",
+    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
