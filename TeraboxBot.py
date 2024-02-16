@@ -237,7 +237,7 @@ async def tera_box(_, message):
     await ProcessingMsg.delete()
 
     SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
-    await bot.send_document(message.chat.id, Video)
+    await bot.send_video(message.chat.id, Video)
     await SendVideoMsg.delete()
 
     os.remove(Video)
