@@ -111,6 +111,29 @@ async def add_user_to_premium(bot, message):
     else:
         await bot.send_message(message.chat.id, "Failed to subscribe user to the premium plan.")
 
+@bot.on_message(filters.command('users') & filters.private)
+async def get_users_info(bot, message):
+    # Check if user is admin
+    if message.from_user.id not in admin_ids:
+        await message.reply_text("You are not authorized to use this command.")
+        return
+
+    # Get the count of premium users
+    premium_users_count = user_links_collection.count_documents({"plan_id": {"$ne": 0}})
+
+    # Get the count of free users
+    free_users_count = user_links_collection.count_documents({"plan_id": 0})
+
+    # Get the total number of users
+    total_users_count = user_links_collection.count_documents({})
+
+    response_msg = (
+        f"Premium Users: {premium_users_count}\n"
+        f"Free Users: {free_users_count}\n"
+        f"Total Users: {total_users_count}"
+    )
+
+    await message.reply_text(response_msg)
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
