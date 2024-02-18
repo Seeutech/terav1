@@ -247,16 +247,7 @@ async def teraBox(bot, message):
         LinkConvert = getUrl(msg)
         ShortUrl = shortener.tinyurl.short(LinkConvert)
         print(ShortUrl)
-        await ProcessingMsg.delete()
-
-        SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
-        #await bot.send_video(message.chat.id, Video)
-        await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
-        await SendVideoMsg.delete()
-
-        #os.remove(Video)
-
-        update_limit(user_id)
+        
 
     except:
         await ProcessingMsg.delete()
@@ -265,6 +256,16 @@ async def teraBox(bot, message):
         await ErrorMsg.delete()
 
     #Video = wget.download(ShortUrl, Path)
+    await ProcessingMsg.delete()
+
+    SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
+        #await bot.send_video(message.chat.id, Video)
+    await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
+    await SendVideoMsg.delete()
+
+        #os.remove(Video)
+
+    update_limit(user_id)
 
     
 
