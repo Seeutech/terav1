@@ -73,7 +73,7 @@ async def subscribe_premium(bot, user_id, plan_id):
 
     return True
 
-channel_username = -1001925725352
+channel_username = 1001625241725
 
 def check_joined():
     async def func(flt, bot, message):
@@ -176,7 +176,7 @@ async def broadcast_message(bot, message):
 
     await message.reply_text("Broadcast sent successfully.")
 
-@bot.on_message(filters.command("info") & filters.private & check_joined())
+@bot.on_message(filters.command("info") & filters.private)
 async def user_info(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
@@ -193,7 +193,7 @@ async def user_info(bot, message):
     await message.reply_text(response_msg)
 
 
-@bot.on_message(filters.command('plans') & filters.private & check_joined())
+@bot.on_message(filters.command('plans') & filters.private)
 async def plansList(bot, message):
     msg_text = ("INR PRICING \n\n"
                 "**10₹ - 7 days**\n"
