@@ -73,7 +73,7 @@ async def subscribe_premium(bot, user_id, plan_id):
 
     return True
 
-channel_username = 1001625241725
+channel_username = -1001625241725
 
 def check_joined():
     async def func(flt, bot, message):
