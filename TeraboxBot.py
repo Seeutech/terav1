@@ -176,7 +176,7 @@ async def broadcast_message(bot, message):
 
     await message.reply_text("Broadcast sent successfully.")
 
-@bot.on_message(filters.command("info") & filters.private)
+@bot.on_message(filters.command("info") & filters.private & check_joined())
 async def user_info(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
@@ -193,7 +193,7 @@ async def user_info(bot, message):
     await message.reply_text(response_msg)
 
 
-@bot.on_message(filters.command('plans') & filters.private)
+@bot.on_message(filters.command('plans') & filters.private & check_joined())
 async def plansList(bot, message):
     msg_text = ("INR PRICING \n\n"
                 "**10₹ - 7 days**\n"
@@ -213,12 +213,12 @@ async def plansList(bot, message):
     )
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
-@bot.on_message(filters.command('support') & filters.private)
+@bot.on_message(filters.command('support') & filters.private & check_joined())
 async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
 
-@bot.on_message(filters.text & filters.private)
+@bot.on_message(filters.text & filters.private & check_joined())
 async def teraBox(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
