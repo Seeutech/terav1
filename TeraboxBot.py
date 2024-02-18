@@ -182,6 +182,21 @@ async def broadcast_message(bot, message):
 
     await message.reply_text("Broadcast sent successfully.")
 
+@bot.on_message(filters.command('admin') & filters.private)
+async def admincommand(bot,message):
+    if message.from_user.id not in admin_ids:
+        await bot.send_message(message.chat.id, "Only admin can Use this command. 🥲")
+        return
+    
+    await bot.send_message(message.chat.id,
+                           "<b>Admin Commands </b>😁\n\n"
+                           "/adduser <b>: to add user to premium plan. </b>\n"
+                           "/users <b>: to check how many users are using the bot.</b>\n" 
+                           "/broadcast <b>: to broadcast a message to all the users. </b> \n"
+                           )
+
+
+
 @bot.on_message(filters.command("info") & filters.private)
 async def user_info(bot, message):
     user_id = message.from_user.id
