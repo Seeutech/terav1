@@ -118,16 +118,31 @@ async def get_users_info(bot, message):
         await message.reply_text("You are not authorized to use this command.")
         return
 
-    # Get the count of premium users
-    premium_users_count = user_links_collection.count_documents({"plan_id": {"$ne": 0}})
+    # Check if the command is for premium users list
+    if len(message.command) > 1 and message.command[1].lower() == 'premium':
+        # Get all premium users
+        premium_users = user_links_collection.find({"plan_id": {"$ne": 0}})
+        
+        # Prepare response message
+        response_msg = "Premium Users List:\n"
+        for user in premium_users:
+            response_msg += (
+                f"User ID: {user['user_id']}, "
+                f"Plan: {user.get('plan_name', 'Unknown')}, "
+                f"Price: {user.get('plan_price', 0)}\n"
+            )
+    else:
+        # Get the count of premium users
+        premium_users_count = user_links_collection.count_documents({"plan_id": {"$ne": 0}})
 
-    # Get the count of free users
-    free_users_count = user_links_collection.count_documents({"plan_id": 0})
+        # Get the count of free users
+        free_users_count = user_links_collection.count_documents({"plan_id": 0})
 
-    # Get the total number of users
-    total_users_count = user_links_collection.count_documents({})
+        # Get the total number of users
+        total_users_count = user_links_collection.count_documents({})
 
-    response_msg = (
+        # Prepare response message
+        response_msg = (
             "<b>Statistics 📊</b>\n\n"
             f"⚡️ |<b> Premium Users: </b>{premium_users_count}\n"
             f"🆓 |<b> Free Users: </b>{free_users_count}\n"
