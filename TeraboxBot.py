@@ -199,7 +199,7 @@ async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
 
-@bot.on_message(filters.text & filters.private & check_joined())
+@bot.on_message(filters.text & filters.private)
 async def teraBox(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
