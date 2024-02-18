@@ -73,25 +73,6 @@ async def subscribe_premium(bot, user_id, plan_id):
 
     return True
 
-channel_username = -1001625241725
-
-def check_joined():
-    async def func(flt, bot, message):
-        join_msg = f"**To use this bot, please join our channel \n <code> After joining channel, you can send links </code>**"
-        user_id = message.from_user.id
-        chat_id = message.chat.id
-        try:
-            member_info = await bot.get_chat_member(channel_username, user_id)
-            if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
-                return True
-            else:
-                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
-                return False
-        except Exception as e:
-            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
-            return False
-
-    return filters.create(func)
 
 
 
@@ -213,7 +194,7 @@ async def plansList(bot, message):
     )
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
-@bot.on_message(filters.command('support') & filters.private & check_joined())
+@bot.on_message(filters.command('support') & filters.private)
 async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
