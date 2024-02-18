@@ -239,7 +239,17 @@ async def teraBox(bot, message):
 
     msg = message.text
     print(msg)
-    await bot.send_message(-1001855899992, f"**User :-** {message.from_user.first_name} \n**Username :-** @{message.from_user.username} \n **User ID:- {user_id}**\n**LINK:- ** {msg}")
+    if message.from_user.username:
+        user_id_text = f"🆔 User ID: [{user_id}](http://telegram.me/{message.from_user.username})"
+    else:
+        user_id_text = f"🆔 User ID: [{user_id}](tg://user?id={user_id})"
+
+    await bot.send_message(
+    -1001855899992,
+    f"{user_id_text}\n"
+    f"Link : {msg})"
+    )
+
 
     ProcessingMsg = await bot.send_message(message.chat.id, "<code>Processing your link...</code>")
     try:
