@@ -213,7 +213,7 @@ async def plansList(bot, message):
     inline_keyboard = ikm(
         [
             [
-                ikb("Contact", url="https://t.me/mrxed_bot")
+                ikb("Buy Now 💰", url="https://t.me/mrxed_bot")
             ]
         ]
     )
