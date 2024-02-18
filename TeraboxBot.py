@@ -111,7 +111,7 @@ async def add_user_to_premium(bot, message):
     else:
         await bot.send_message(message.chat.id, "Failed to subscribe user to the premium plan.")
 
-@bot.on_message(filters.command('users') & filters.private)
+@bot.on_message(filters.command('stats') & filters.private)
 async def get_users_info(bot, message):
     # Check if user is admin
     if message.from_user.id not in admin_ids:
