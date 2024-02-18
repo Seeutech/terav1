@@ -128,10 +128,12 @@ async def get_users_info(bot, message):
     total_users_count = user_links_collection.count_documents({})
 
     response_msg = (
-        f"Premium Users: {premium_users_count}\n"
-        f"Free Users: {free_users_count}\n"
-        f"Total Users: {total_users_count}"
-    )
+            "<b>Statistics 📊</b>\n\n"
+            f"⚡️ |<b> Premium Users: </b>{premium_users_count}\n"
+            f"🆓 |<b> Free Users: </b>{free_users_count}\n"
+            f"👥 |<b> Total Users: </b>{total_users_count}\n\n"
+            "\t**Use** '/stats premium' <b>to view Premium users List</b>\n\n"
+        )
 
     await message.reply_text(response_msg)
 
