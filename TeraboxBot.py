@@ -85,10 +85,10 @@ def check_joined():
             if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
                 return True
             else:
-                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/teraboxupdate")]]))
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
                 return False
         except Exception as e:
-            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/teraboxupdate")]]))
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
             return False
 
     return filters.create(func)
