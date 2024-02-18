@@ -73,6 +73,25 @@ async def subscribe_premium(bot, user_id, plan_id):
 
     return True
 
+channel_username = -1001925725352
+
+def check_joined():
+    async def func(flt, bot, message):
+        join_msg = f"**To use this bot, please join our channel \n <code> After joining channel, you can send links </code>**"
+        user_id = message.from_user.id
+        chat_id = message.chat.id
+        try:
+            member_info = await bot.get_chat_member(channel_username, user_id)
+            if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
+                return True
+            else:
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/teraboxupdate")]]))
+                return False
+        except Exception as e:
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/teraboxupdate")]]))
+            return False
+
+    return filters.create(func)
 
 
 
@@ -122,8 +141,8 @@ async def start(bot, message):
     inline_keyboard = ikm(
     [
         [
-            ikb("Report Bugs", url="https://t.me/mrxed_bot"),
-            ikb("Support Channel", url="https://t.me/teraboxupdate")
+            ikb("Report Bugs", url="https://t.me/telebotsupdategroup"),
+            ikb("Support Channel", url="https://t.me/TeleBotsUpdate")
         ]
     ]
 )
