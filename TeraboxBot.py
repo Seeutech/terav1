@@ -39,6 +39,25 @@ try:
 except:
     pass
 
+channel_username = "@TeleBotsUpdate"
+
+def check_joined():
+    async def func(flt, bot, message):
+        join_msg = f"**To use this bot, please join our channel \n Try to send Link after Joining the Channel**"
+        user_id = message.from_user.id
+        chat_id = message.chat.id
+        try:
+            member_info = await bot.get_chat_member(channel_username, user_id)
+            if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
+                return True
+            else:
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+                return False
+        except Exception as e:
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+            return False
+
+    return filters.create(func)
 
 def check_limit(user_id):
     user = user_links_collection.find_one({"user_id": user_id})
@@ -254,7 +273,7 @@ async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
 
-@bot.on_message(filters.text & filters.private)
+@bot.on_message(filters.text & filters.private & check_joined())
 async def teraBox(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
