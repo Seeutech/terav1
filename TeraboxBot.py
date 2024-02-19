@@ -2,6 +2,7 @@ import pyshorteners
 from datetime import datetime, timedelta
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton as ikb, InlineKeyboardMarkup as ikm
+from pyrogram.enums import ChatMemberStatus
 from terabox import getUrl
 import pymongo
 import time
@@ -10,7 +11,7 @@ import time
 # Video Will BE Downloaded Here
 
 bot = Client(
-    "POMPomBottt",
+    "TestBOt",
     bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
@@ -225,7 +226,7 @@ async def admincommand(bot,message):
     await bot.send_message(message.chat.id,
                            "<b>Admin Commands </b>😁\n\n"
                            "/adduser <b>: to add user to premium plan. </b>\n"
-                           "/users <b>: to check how many users are using the bot.</b>\n" 
+                           "/stats <b>: to check how many users are using the bot.</b>\n" 
                            "/broadcast <b>: to broadcast a message to all the users. </b> \n"
                            )
 
@@ -273,7 +274,7 @@ async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
 
-@bot.on_message(filters.text & filters.private )
+@bot.on_message(filters.text & filters.private & check_joined())
 async def teraBox(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
