@@ -327,7 +327,7 @@ async def teraBox(bot, message):
     await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
     await SendVideoMsg.delete()
 
-        os.remove(Video)
+    os.remove(Video)
 
     update_limit(user_id)
 
