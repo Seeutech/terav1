@@ -6,15 +6,13 @@ from pyrogram.enums import ChatMemberStatus
 from terabox import getUrl
 import pymongo
 import time
-import wget
-import os
 
-Path = "downloads"
+#Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
 # Video Will BE Downloaded Here
 
 bot = Client(
     "TestBOt",
-    bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM",
+    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
@@ -319,15 +317,15 @@ async def teraBox(bot, message):
         time.sleep(3)
         await ErrorMsg.delete()
 
-    Video = wget.download(ShortUrl, Path)
+    #Video = wget.download(ShortUrl, Path)
     await ProcessingMsg.delete()
 
     SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
-    await bot.send_video(message.chat.id, Video)
+        #await bot.send_video(message.chat.id, Video)
     await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
     await SendVideoMsg.delete()
 
-    os.remove(Video)
+        #os.remove(Video)
 
     update_limit(user_id)
 
