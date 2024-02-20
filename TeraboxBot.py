@@ -6,6 +6,8 @@ from pyrogram.enums import ChatMemberStatus
 from terabox import getUrl
 import pymongo
 import time
+import wget
+import os
 
 Path = "downloads"
 # Video Will BE Downloaded Here
