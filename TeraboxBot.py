@@ -264,7 +264,7 @@ async def support(bot, message):
 # Function to download video using youtube-dl
 async def download_video(url, temp_file_path):
     ydl_opts = {
-        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4',
+        'format': 'best',
         'outtmpl': temp_file_path
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
