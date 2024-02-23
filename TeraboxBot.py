@@ -290,30 +290,30 @@ async def teraBox(bot, message):
     msg = message.text
 
     ProcessingMsg = await bot.send_message(message.chat.id, "Processing your link...")
-try:
-    LinkConvert = getUrl(msg)
-    ShortUrl = shortener.tinyurl.short(LinkConvert)
-    print(ShortUrl)
-    # Specify the path where you want to save the downloaded video
-    # For example, you can use a temporary directory
-    temp_dir = tempfile.mkdtemp()
-    temp_file_path = os.path.join(temp_dir, 'video.mp4')
-    VideoPath = await download_video(ShortUrl, temp_file_path)  # Download the video using youtube-dl
-except Exception as e:
-    await ProcessingMsg.delete()
-    ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
-    await asyncio.sleep(3)
-    await ErrorMsg.delete()
-else:
-    await ProcessingMsg.delete()
-    SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video, Please Wait...</code>")
     try:
-        await bot.send_video(message.chat.id, VideoPath)
-        await bot.send_message(message.chat.id, f"Here's the link: {ShortUrl}\n\n<code>If the video doesn't appear, you can download it through the link.</code>")
+            LinkConvert = getUrl(msg)
+            ShortUrl = shortener.tinyurl.short(LinkConvert)
+            print(ShortUrl)
+            # Specify the path where you want to save the downloaded video
+            # For example, you can use a temporary directory
+            temp_dir = tempfile.mkdtemp()
+            temp_file_path = os.path.join(temp_dir, 'video.mp4')
+            VideoPath = await download_video(ShortUrl, temp_file_path)  # Download the video using youtube-dl
     except Exception as e:
-        await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
-    finally:
-        await SendVideoMsg.delete()
+            await ProcessingMsg.delete()
+            ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
+            await asyncio.sleep(3)
+            await ErrorMsg.delete()
+    else:
+            await ProcessingMsg.delete()
+            SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video, Please Wait...</code>")
+            try:
+                await bot.send_video(message.chat.id, VideoPath)
+                await bot.send_message(message.chat.id, f"Here's the link: {ShortUrl}\n\n<code>If the video doesn't appear, you can download it through the link.</code>")
+            except Exception as e:
+                await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
+            finally:
+                await SendVideoMsg.delete()
         
     update_limit(user_id)
 
