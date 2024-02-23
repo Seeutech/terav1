@@ -51,7 +51,7 @@ channel_username = "@TeleBotsUpdate"
 
 def check_joined():
     async def func(flt, bot, message):
-        join_msg = f"**To use this bot, please join our channel \n Try to send Link after Joining the Channel**"
+        join_msg = f"**To use this bot, Please join our channel.\nJoin From The Link Below 👇**"
         user_id = message.from_user.id
         chat_id = message.chat.id
         try:
