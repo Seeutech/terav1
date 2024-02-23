@@ -7,8 +7,8 @@ from terabox import getUrl
 import pymongo
 import time
 
-#Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
-# Video Will BE Downloaded Here
+Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
+Video Will BE Downloaded Here
 
 bot = Client(
     "TestBOt",
@@ -317,7 +317,7 @@ async def teraBox(bot, message):
         time.sleep(3)
         await ErrorMsg.delete()
 
-    #Video = wget.download(ShortUrl, Path)
+    Video = wget.download(ShortUrl, Path)
     await ProcessingMsg.delete()
 
     SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
@@ -325,7 +325,7 @@ async def teraBox(bot, message):
     await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
     await SendVideoMsg.delete()
 
-        #os.remove(Video)
+        os.remove(Video)
 
     update_limit(user_id)
 
