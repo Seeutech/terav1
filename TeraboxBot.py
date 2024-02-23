@@ -26,7 +26,7 @@ shortener = pyshorteners.Shortener()
 temp_dir = tempfile.mkdtemp()
 
 # Specify a temporary file path within the temporary directory
-temp_file_path = os.path.join(temp_dir, 'video.mp4')
+temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
 
 # Initialize MongoDB client and database
 ConnectionString = "mongodb+srv://whatsappbot:WbFWxnSrzNvXMzAA@whatsappbot.n058qik.mongodb.net/?retryWrites=true&w=majority"
@@ -275,7 +275,7 @@ async def teraBox(bot, message):
             # Specify the path where you want to save the downloaded video
             # For example, you can use a temporary directory
             temp_dir = tempfile.mkdtemp()
-            temp_file_path = os.path.join(temp_dir, 'video.mp4')
+            temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
             VideoPath = await download_video(ShortUrl, temp_file_path)  # Download the video using youtube-dl
     except Exception as e:
             await ProcessingMsg.delete()
