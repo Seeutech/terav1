@@ -12,7 +12,7 @@ import time
 
 bot = Client(
     "TestBOt",
-    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
+    bot_token="6790916216:AAE19YJqas4CjTOhr74lYflmVvjPv_Fr7QM",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
@@ -22,7 +22,7 @@ admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
 shortener = pyshorteners.Shortener()
 
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://smit:smit@cluster0.pjccvjk.mongodb.net/?retryWrites=true&w=majority"
+ConnectionString = "mongodb+srv://whatsappbot:WbFWxnSrzNvXMzAA@whatsappbot.n058qik.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
