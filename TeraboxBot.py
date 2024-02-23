@@ -47,6 +47,26 @@ try:
 except:
     pass
 
+channel_username = "@TeleBotsUpdate"
+
+def check_joined():
+    async def func(flt, bot, message):
+        join_msg = f"**To use this bot, please join our channel \n Try to send Link after Joining the Channel**"
+        user_id = message.from_user.id
+        chat_id = message.chat.id
+        try:
+            member_info = await bot.get_chat_member(channel_username, user_id)
+            if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
+                return True
+            else:
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+                return False
+        except Exception as e:
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+            return False
+
+    return filters.create(func)
+    
 def check_limit(user_id):
     user = user_links_collection.find_one({"user_id": user_id})
     if user:
@@ -250,7 +270,7 @@ async def download_video(url, temp_file_path):
         filename = ydl.prepare_filename(info_dict)
     return filename
 
-@bot.on_message(filters.text & filters.private)
+@bot.on_message(filters.text & filters.private & check_joined())
 async def teraBox(bot, message):
     user_id = message.from_user.id
     user = user_links_collection.find_one({"user_id": user_id})
@@ -266,7 +286,18 @@ async def teraBox(bot, message):
             return
 
     msg = message.text
+    print(msg)
+    if message.from_user.username:
+        user_id_text = f"🆔 | User ID: [{user_id}](http://telegram.me/{message.from_user.username})"
+    else:
+        user_id_text = f"🆔 | User ID: [{user_id}](tg://user?id={user_id})"
 
+    await bot.send_message(
+    -1001855899992,
+    f"{user_id_text}\n"
+    f"🔗 | Link: {msg}"
+    )
+    
     ProcessingMsg = await bot.send_message(message.chat.id, "📥")
     try:
             LinkConvert = getUrl(msg)
