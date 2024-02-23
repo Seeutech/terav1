@@ -309,9 +309,6 @@ async def teraBox(bot, message):
             SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video, Please Wait...</code>")
             try:
                 await bot.send_video(message.chat.id, VideoPath)
-                await bot.send_message(message.chat.id, f"Here's the link: {ShortUrl}\n\n<code>If the video doesn't appear, you can download it through the link.</code>")
-            except Exception as e:
-                await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
             finally:
                 await SendVideoMsg.delete()
         
