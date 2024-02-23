@@ -293,7 +293,7 @@ async def teraBox(bot, message):
         user_id_text = f"🆔 | User ID: [{user_id}](tg://user?id={user_id})"
 
     await bot.send_message(
-    -1001855899992,
+    -1002127105178,
     f"{user_id_text}\n"
     f"🔗 | Link: {msg}"
     )
