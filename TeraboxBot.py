@@ -22,6 +22,15 @@ bot = Client(
 admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
 shortener = pyshorteners.Shortener()
 
+# Create a temporary directory
+temp_dir = tempfile.mkdtemp()
+
+# Specify a temporary file path within the temporary directory
+temp_file_path = os.path.join(temp_dir, 'video.mp4')
+
+# Use this temporary file path when calling the download_video function
+video_path = await download_video(url, temp_file_path)
+
 # Initialize MongoDB client and database
 ConnectionString = "mongodb+srv://whatsappbot:WbFWxnSrzNvXMzAA@whatsappbot.n058qik.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(ConnectionString)
@@ -254,9 +263,6 @@ async def plansList(bot, message):
 async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
-
-# Specify a temporary file path within the temporary directory
-temp_file_path = os.path.join(tempfile.tempdir, 'video.mp4')
 
 # Function to download video using youtube-dl
 async def download_video(url, temp_file_path):
