@@ -13,7 +13,7 @@ import tempfile
 
 bot = Client(
     "TestBOt",
-    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
+    bot_token="6790916216:AAE19YJqas4CjTOhr74lYflmVvjPv_Fr7QM",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
@@ -29,7 +29,7 @@ temp_dir = tempfile.mkdtemp()
 temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
 
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://smit:smit@cluster0.pjccvjk.mongodb.net/?retryWrites=true&w=majority"
+ConnectionString = "mongodb+srv://ForwardBot:CYeSSHApf1eS7vgK@forwardbot.673yysh.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
