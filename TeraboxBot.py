@@ -74,14 +74,11 @@ async def subscribe_premium(bot, user_id, plan_id):
     user_links_collection.update_one({"user_id": user_id}, {"$set": {
                                      "plan_id": plan_id, "plan_name": plan["name"], "plan_price": plan["price"]}})
     try:
-        await bot.send_message(user_id, f"Congratulations! You have been subscribed to the {plan['name']} Validity.\n **Unlimited Premium plan.**")
+        await bot.send_message(user_id, f"**Congratulations! You have been subscribed to the {plan['name']} Validity.\nLinks Limit: Unlimited.**")
     except Exception as e:
         print(f"Failed to notify user {user_id}: {e}")
 
     return True
-
-
-
 
 @bot.on_message(filters.command('adduser') & filters.private)
 async def add_user_to_premium(bot, message):
@@ -116,13 +113,13 @@ async def add_user_to_premium(bot, message):
     if success:
         await bot.send_message(message.chat.id, f"User {user_identifier} has been subscribed to the {plan['name']} premium plan.")
     else:
-        await bot.send_message(message.chat.id, "Failed to subscribe user to the premium plan.")
+        await bot.send_message(message.chat.id, "**Failed to subscribe user to the premium plan.**")
 
 @bot.on_message(filters.command('stats') & filters.private)
 async def get_users_info(bot, message):
     # Check if user is admin
     if message.from_user.id not in admin_ids:
-        await message.reply_text("You are not authorized to use this command.")
+        await message.reply_text("**You are not authorized to use this command.**")
         return
 
     # Check if the command is for premium users list
@@ -161,22 +158,17 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"Hello {message.from_user.first_name} ,"
-                           
-                    "\nI can Download Files from Terabox." 
-                    "\nMade with ❤️ by"
-                    "\n@mrxed_bot & @mrwhite7206_bot")
+    welcomemsg = (f"Hello {message.from_user.first_name} 👋,\nSen me terabox links i will download video for you.\nMade with ❤️ by @telebotsupdate")
     inline_keyboard = ikm(
     [
         [
-            ikb("Report Bugs", url="https://t.me/telebotsupdategroup"),
-            ikb("Support Channel", url="https://t.me/TeleBotsUpdate")
+            ikb("🪲 Report Bugs", url="https://t.me/telebotsupdategroup"),
+            ikb("☎️ Support Channel", url="https://t.me/TeleBotsUpdate")
         ]
     ]
 )
 
     await message.reply_text(welcomemsg, reply_markup=inline_keyboard)
-
 
 @bot.on_message(filters.command("broadcast") & filters.private)
 async def broadcast_message(bot, message):
@@ -217,8 +209,6 @@ async def admincommand(bot,message):
                            "/broadcast <b>: to broadcast a message to all the users. </b> \n"
                            )
 
-
-
 @bot.on_message(filters.command("info") & filters.private)
 async def user_info(bot, message):
     user_id = message.from_user.id
@@ -238,22 +228,10 @@ async def user_info(bot, message):
 
 @bot.on_message(filters.command('plans') & filters.private)
 async def plansList(bot, message):
-    msg_text = ("INR PRICING \n\n"
-                "**10₹ - 7 days**\n"
-                "**20₹ - 15 days** \n"
-                "**30₹ - 24 days** \n"
-                "**40₹ - 30 days**\n\n"
-                "CRYPTO PRICING \n\n"
-                "**$1 - 30 days** \n\n"
-                "**Contact** @mrxed_bot **to add paid plan 💥**")
+    msg_text = ("<b>INR PRICING \n\n10₹ - 7 days\n20₹ - 15 days\n30₹ - 24 days** \n40₹ - 30 days**\n\nCRYPTO PRICING \n\n$1 - 30 days\n</b>")
 
     inline_keyboard = ikm(
-        [
-            [
-                ikb("Buy Now 💰", url="https://t.me/mrxed_bot")
-            ]
-        ]
-    )
+        [[ikb("Buy Now 💰", url="https://t.me/mrxed_bot")]])
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
 @bot.on_message(filters.command('support') & filters.private)
@@ -284,12 +262,12 @@ async def teraBox(bot, message):
     plan_id = user.get("plan_id", 0)
     if plan_id == 0:
         if not check_limit(user_id):
-            await bot.send_message(message.chat.id, "You have reached your daily conversion limit. Please try again later or subscribe to a premium plan.")
+            await bot.send_message(message.chat.id, "**You have reached your daily conversion limit. Limit Will resert tomorrow or Subscribe to a premium plan. Click on /plans o see plans.**")
             return
 
     msg = message.text
 
-    ProcessingMsg = await bot.send_message(message.chat.id, "Processing your link...")
+    ProcessingMsg = await bot.send_message(message.chat.id, "📥")
     try:
             LinkConvert = getUrl(msg)
             ShortUrl = shortener.tinyurl.short(LinkConvert)
@@ -306,11 +284,14 @@ async def teraBox(bot, message):
             await ErrorMsg.delete()
     else:
             await ProcessingMsg.delete()
-            SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video, Please Wait...</code>")
-            try:
-                await bot.send_video(message.chat.id, VideoPath)
-            finally:
-                await SendVideoMsg.delete()
+    SendVideoMsg = await bot.send_message(message.chat.id, "📤")
+    try:
+        caption = f"**❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot**"
+        await bot.send_video(message.chat.id, VideoPath, caption=caption)
+    except Exception as e:
+        await bot.send_message(message.chat.id, f"Error: {e}")
+    finally:
+        await SendVideoMsg.delete()
         
     update_limit(user_id)
 
