@@ -4,3 +4,4 @@ pyshorteners==1.0.1
 requests==2.31.0
 wget==3.2
 tgcrypto
+youtube_dl
