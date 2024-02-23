@@ -158,7 +158,7 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"Hello {message.from_user.first_name} 👋,\nSen me terabox links i will download video for you.\nMade with ❤️ by @telebotsupdate")
+    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links i will download video for you.\n\nMade with ❤️ by @telebotsupdate**")
     inline_keyboard = ikm(
     [
         [
