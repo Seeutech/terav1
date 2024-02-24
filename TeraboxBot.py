@@ -302,37 +302,37 @@ async def teraBox(bot, message):
     )
     
     ProcessingMsg = await bot.send_message(message.chat.id, "📥")
-try:
-    LinkConvert = getUrl(msg)
-    ShortUrl = shortener.tinyurl.short(LinkConvert)
-    print(ShortUrl)
-    # Download the video using youtube-dl
-    temp_dir = tempfile.mkdtemp()
-    temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
-    VideoPath = await download_video(ShortUrl, temp_file_path)
+    try:
+        LinkConvert = getUrl(msg)
+        ShortUrl = shortener.tinyurl.short(LinkConvert)
+        print(ShortUrl)
+        # Download the video using youtube-dl
+        temp_dir = tempfile.mkdtemp()
+        temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
+        VideoPath = await download_video(ShortUrl, temp_file_path)
     
-    # Check if the file size is below the maximum threshold
-    file_size = os.path.getsize(temp_file_path)
-    if file_size <= MAX_FILE_SIZE:
-        # Upload the video if it's below the maximum size
-        SendVideoMsg = await bot.send_message(message.chat.id, "📤")
-        caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
-        await bot.send_video(message.chat.id, VideoPath, caption=caption)
-        await SendVideoMsg.delete()
-    else:
-        # Send the direct download link if the video exceeds the size limit
-        await bot.send_message(message.chat.id, f"⚠️ The video exceeds the maximum file size limit of 200MB: {ShortUrl}")
+        # Check if the file size is below the maximum threshold
+        file_size = os.path.getsize(temp_file_path)
+        if file_size <= MAX_FILE_SIZE:
+            # Upload the video if it's below the maximum size
+            SendVideoMsg = await bot.send_message(message.chat.id, "📤")
+            caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
+            await bot.send_video(message.chat.id, VideoPath, caption=caption)
+            await SendVideoMsg.delete()
+        else:
+            # Send the direct download link if the video exceeds the size limit
+            await bot.send_message(message.chat.id, f"⚠️ The video exceeds the maximum file size limit of 200MB: {ShortUrl}")
 
-except Exception as e:
-    await ProcessingMsg.delete()
-    ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
-    await asyncio.sleep(3)
-    await ErrorMsg.delete()
+    except Exception as e:
+        await ProcessingMsg.delete()
+        ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
+        await asyncio.sleep(3)
+        await ErrorMsg.delete()
 
-finally:
-    await ProcessingMsg.delete()
+    finally:
+        await ProcessingMsg.delete()
         
-    update_limit(user_id)
+        update_limit(user_id)
 
     
 print("Started..")
