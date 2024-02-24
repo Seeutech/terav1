@@ -13,7 +13,7 @@ import tempfile
 
 bot = Client(
     "TeraBox Bot",
-    bot_token="6790916216:AAE19YJqas4CjTOhr74lYflmVvjPv_Fr7QM",
+    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
@@ -181,7 +181,7 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @telebotsupdate**")
+    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @telebotsupdate**\nMade By : @mrxed_bot")
     inline_keyboard = ikm(
     [
         [
