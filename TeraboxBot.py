@@ -12,7 +12,7 @@ import tempfile
 
 
 bot = Client(
-    "TestBOt",
+    "TeraBox Bot",
     bot_token="6790916216:AAE19YJqas4CjTOhr74lYflmVvjPv_Fr7QM",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
@@ -181,7 +181,7 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links i will download video for you.\n\nMade with ❤️ by @mrxed_bot & @telebotsupdate**")
+    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @telebotsupdate**")
     inline_keyboard = ikm(
     [
         [
@@ -285,7 +285,7 @@ async def teraBox(bot, message):
     plan_id = user.get("plan_id", 0)
     if plan_id == 0:
         if not check_limit(user_id):
-            await bot.send_message(message.chat.id, "**You have reached your daily conversion limit. Limit Will resert tomorrow or Subscribe to a premium plan. Click on /plans o see plans.**")
+            await bot.send_message(message.chat.id, "**You have reached your daily conversion limit. Limit Will resert tomorrow or You can Subscribe to a premium our plan. Click on /plans to see plans.**")
             return
 
     msg = message.text
@@ -321,7 +321,7 @@ async def teraBox(bot, message):
             await SendVideoMsg.delete()
         else:
             # Send the direct download link if the video exceeds the size limit
-            await bot.send_message(message.chat.id, f"⚠️ The video exceeds the maximum file size limit of 200MB: {ShortUrl}")
+            await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
 
     except Exception as e:
         await ProcessingMsg.delete()
