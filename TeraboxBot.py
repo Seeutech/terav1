@@ -1,3 +1,4 @@
+import os
 import pyshorteners
 from datetime import datetime, timedelta
 from pyrogram import Client, filters
@@ -5,14 +6,14 @@ from pyrogram.types import InlineKeyboardButton as ikb, InlineKeyboardMarkup as 
 from pyrogram.enums import ChatMemberStatus
 from terabox import getUrl
 import pymongo
-import time
+import asyncio
+import youtube_dl
+import tempfile
 
-#Path = "C://Users//panch//OneDrive//Documents//TeraBox Downloads"
-# Video Will BE Downloaded Here
 
 bot = Client(
-    "TestBOt",
-    bot_token="6783701234:AAEDyKCpLy_WojrHXFo_k1lW5ejJAShcH2o",
+    "TeraBox Bot",
+    bot_token="6790916216:AAE19YJqas4CjTOhr74lYflmVvjPv_Fr7QM",
     api_id=1712043,
     api_hash="965c994b615e2644670ea106fd31daaf"
     
@@ -21,8 +22,17 @@ bot = Client(
 admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
 shortener = pyshorteners.Shortener()
 
+# Create a temporary directory
+temp_dir = tempfile.mkdtemp()
+
+# Define the maximum file size in bytes (200MB)
+MAX_FILE_SIZE = 200 * 1024 * 1024
+
+# Specify a temporary file path within the temporary directory
+temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
+
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://smit:smit@cluster0.pjccvjk.mongodb.net/?retryWrites=true&w=majority"
+ConnectionString = "mongodb+srv://ForwardBot:CYeSSHApf1eS7vgK@forwardbot.673yysh.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
@@ -44,7 +54,7 @@ channel_username = "@TeleBotsUpdate"
 
 def check_joined():
     async def func(flt, bot, message):
-        join_msg = f"**To use this bot, please join our channel \n Try to send Link after Joining the Channel**"
+        join_msg = f"**To use this bot, Please join our channel.\nJoin From The Link Below 👇**"
         user_id = message.from_user.id
         chat_id = message.chat.id
         try:
@@ -52,14 +62,14 @@ def check_joined():
             if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
                 return True
             else:
-                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
                 return False
         except Exception as e:
-            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("🎬 Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
             return False
 
     return filters.create(func)
-
+    
 def check_limit(user_id):
     user = user_links_collection.find_one({"user_id": user_id})
     if user:
@@ -87,14 +97,11 @@ async def subscribe_premium(bot, user_id, plan_id):
     user_links_collection.update_one({"user_id": user_id}, {"$set": {
                                      "plan_id": plan_id, "plan_name": plan["name"], "plan_price": plan["price"]}})
     try:
-        await bot.send_message(user_id, f"Congratulations! You have been subscribed to the {plan['name']} Validity.\n **Unlimited Premium plan.**")
+        await bot.send_message(user_id, f"**Congratulations! You have been subscribed to the {plan['name']} Validity.\nLinks Limit: Unlimited.**")
     except Exception as e:
         print(f"Failed to notify user {user_id}: {e}")
 
     return True
-
-
-
 
 @bot.on_message(filters.command('adduser') & filters.private)
 async def add_user_to_premium(bot, message):
@@ -129,13 +136,13 @@ async def add_user_to_premium(bot, message):
     if success:
         await bot.send_message(message.chat.id, f"User {user_identifier} has been subscribed to the {plan['name']} premium plan.")
     else:
-        await bot.send_message(message.chat.id, "Failed to subscribe user to the premium plan.")
+        await bot.send_message(message.chat.id, "**Failed to subscribe user to the premium plan.**")
 
 @bot.on_message(filters.command('stats') & filters.private)
 async def get_users_info(bot, message):
     # Check if user is admin
     if message.from_user.id not in admin_ids:
-        await message.reply_text("You are not authorized to use this command.")
+        await message.reply_text("**You are not authorized to use this command.**")
         return
 
     # Check if the command is for premium users list
@@ -174,22 +181,17 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"Hello {message.from_user.first_name} ,"
-                           
-                    "\nI can Download Files from Terabox." 
-                    "\nMade with ❤️ by"
-                    "\n@mrxed_bot & @mrwhite7206_bot")
+    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @telebotsupdate**")
     inline_keyboard = ikm(
     [
         [
-            ikb("Report Bugs", url="https://t.me/telebotsupdategroup"),
-            ikb("Support Channel", url="https://t.me/TeleBotsUpdate")
+            ikb("🪲 Report Bugs", url="https://t.me/telebotsupdategroup"),
+            ikb("☎️ Support Channel", url="https://t.me/TeleBotsUpdate")
         ]
     ]
 )
 
     await message.reply_text(welcomemsg, reply_markup=inline_keyboard)
-
 
 @bot.on_message(filters.command("broadcast") & filters.private)
 async def broadcast_message(bot, message):
@@ -230,8 +232,6 @@ async def admincommand(bot,message):
                            "/broadcast <b>: to broadcast a message to all the users. </b> \n"
                            )
 
-
-
 @bot.on_message(filters.command("info") & filters.private)
 async def user_info(bot, message):
     user_id = message.from_user.id
@@ -251,28 +251,27 @@ async def user_info(bot, message):
 
 @bot.on_message(filters.command('plans') & filters.private)
 async def plansList(bot, message):
-    msg_text = ("INR PRICING \n\n"
-                "**10₹ - 7 days**\n"
-                "**20₹ - 15 days** \n"
-                "**30₹ - 24 days** \n"
-                "**40₹ - 30 days**\n\n"
-                "CRYPTO PRICING \n\n"
-                "**$1 - 30 days** \n\n"
-                "**Contact** @mrxed_bot **to add paid plan 💥**")
+    msg_text = ("<b>INR PRICING \n\n10₹ - 7 days\n20₹ - 15 days\n30₹ - 24 days** \n40₹ - 30 days**\n\nCRYPTO PRICING \n\n$1 - 30 days\n</b>")
 
     inline_keyboard = ikm(
-        [
-            [
-                ikb("Buy Now 💰", url="https://t.me/mrxed_bot")
-            ]
-        ]
-    )
+        [[ikb("Buy Now 💰", url="https://t.me/mrxed_bot")]])
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
 @bot.on_message(filters.command('support') & filters.private)
 async def support(bot, message):
     ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
     await bot.send_message(message.chat.id,ContactUs)
+
+# Function to download video using youtube-dl
+async def download_video(url, temp_file_path):
+    ydl_opts = {
+        'format': 'best',
+        'outtmpl': temp_file_path
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(url, download=True)
+        filename = ydl.prepare_filename(info_dict)
+    return filename
 
 @bot.on_message(filters.text & filters.private & check_joined())
 async def teraBox(bot, message):
@@ -286,49 +285,55 @@ async def teraBox(bot, message):
     plan_id = user.get("plan_id", 0)
     if plan_id == 0:
         if not check_limit(user_id):
-            await bot.send_message(message.chat.id, "You have reached your daily conversion limit. Please try again later or subscribe to a premium plan.")
+            await bot.send_message(message.chat.id, "**You have reached your daily conversion limit. Limit Will resert tomorrow or You can Subscribe to a premium our plan. Click on /plans to see plans.**")
             return
 
     msg = message.text
     print(msg)
     if message.from_user.username:
-        user_id_text = f"🆔 User ID: [{user_id}](http://telegram.me/{message.from_user.username})"
+        user_id_text = f"🆔 | User ID: [{user_id}](http://telegram.me/{message.from_user.username})"
     else:
-        user_id_text = f"🆔 User ID: [{user_id}](tg://user?id={user_id})"
+        user_id_text = f"🆔 | User ID: [{user_id}](tg://user?id={user_id})"
 
     await bot.send_message(
-    -1001855899992,
+    -1002127105178,
     f"{user_id_text}\n"
-    f"Link : {msg})"
+    f"🔗 | Link: {msg}"
     )
-
-
-    ProcessingMsg = await bot.send_message(message.chat.id, "<code>Processing your link...</code>")
+    
+    ProcessingMsg = await bot.send_message(message.chat.id, "📥")
     try:
-
         LinkConvert = getUrl(msg)
         ShortUrl = shortener.tinyurl.short(LinkConvert)
         print(ShortUrl)
-        
+        # Download the video using youtube-dl
+        temp_dir = tempfile.mkdtemp()
+        temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
+        VideoPath = await download_video(ShortUrl, temp_file_path)
+    
+        # Check if the file size is below the maximum threshold
+        file_size = os.path.getsize(temp_file_path)
+        if file_size <= MAX_FILE_SIZE:
+            # Upload the video if it's below the maximum size
+            SendVideoMsg = await bot.send_message(message.chat.id, "📤")
+            caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
+            await bot.send_video(message.chat.id, VideoPath, caption=caption)
+            await SendVideoMsg.delete()
+        else:
+            # Send the direct download link if the video exceeds the size limit
+            await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
 
-    except:
+    except Exception as e:
         await ProcessingMsg.delete()
-        ErrorMsg = await bot.send_message(message.chat.id, "<code> Link not found or Invalid Link </code>")
-        time.sleep(3)
+        ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
+        await asyncio.sleep(3)
         await ErrorMsg.delete()
 
-    #Video = wget.download(ShortUrl, Path)
-    await ProcessingMsg.delete()
-
-    SendVideoMsg = await bot.send_message(message.chat.id, "<code>Sending Video Please Wait...</code>")
-        #await bot.send_video(message.chat.id, Video)
-    await bot.send_message(message.chat.id, "Here's the link : " + ShortUrl + "\n\n <code>If Video doesn't come then you can download through the Link </code>")
-    await SendVideoMsg.delete()
-
-        #os.remove(Video)
-
-    update_limit(user_id)
+    finally:
+        await ProcessingMsg.delete()
+        
+        update_limit(user_id)
 
     
-
+print("Started..")
 bot.run()
