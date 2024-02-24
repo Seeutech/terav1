@@ -312,7 +312,7 @@ try:
     VideoPath = await download_video(ShortUrl, temp_file_path)
     
     # Check if the file size is below the maximum threshold
-    file_size = os.path.getsize(VideoPath)
+    file_size = os.path.getsize(temp_file_path)
     if file_size <= MAX_FILE_SIZE:
         # Upload the video if it's below the maximum size
         SendVideoMsg = await bot.send_message(message.chat.id, "📤")
