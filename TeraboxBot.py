@@ -296,7 +296,7 @@ async def teraBox(bot, message):
         user_id_text = f"🆔 | User ID: [{user_id}](tg://user?id={user_id})"
 
     await bot.send_message(
-    -1002127105178,
+    -1001855899992,
     f"{user_id_text}\n"
     f"🔗 | Link: {msg}"
     )
@@ -315,6 +315,7 @@ async def teraBox(bot, message):
         file_size = os.path.getsize(temp_file_path)
         if file_size <= MAX_FILE_SIZE:
             # Upload the video if it's below the maximum size
+            await ProcessingMsg.delete()
             SendVideoMsg = await bot.send_message(message.chat.id, "📤")
             caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
             await bot.send_video(message.chat.id, VideoPath, caption=caption)
