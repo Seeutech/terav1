@@ -320,11 +320,20 @@ async def teraBox(bot, message):
             SendVideoMsg = await bot.send_message(message.chat.id, "📤")
             caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
             await bot.send_video(message.chat.id, VideoPath, caption=caption)
-            os.remove(VideoPath)
-            os.remove(temp_file_path)
-            os.remove(temp_dir)
+            try:
+                os.remove(VideoPath)
+            except:
+                pass
+            try:
+                os.remove(temp_dir)
+            except:
+                pass
+            try:
+                os.remove(temp_file_path)
+            except:
+                pass
             await SendVideoMsg.delete()
-            await SendVideoMsg.delete()
+
         else:
             # Send the direct download link if the video exceeds the size limit
             try:
