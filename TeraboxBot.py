@@ -9,6 +9,7 @@ import pymongo
 import asyncio
 import youtube_dl
 import tempfile
+import shutil
 
 
 bot = Client(
@@ -320,22 +321,35 @@ async def teraBox(bot, message):
             caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
             await bot.send_video(message.chat.id, VideoPath, caption=caption)
             os.remove(VideoPath)
-            try:
-                os.remove(temp_file_path)
-            except:
-                pass
+            os.remove(temp_file_path)
+            os.remove(temp_dir)
+            await SendVideoMsg.delete()
             await SendVideoMsg.delete()
         else:
             # Send the direct download link if the video exceeds the size limit
-            os.remove(VideoPath)
             try:
-                
+                os.remove(VideoPath)
+            except:
+                pass
+            try:
+                os.remove(temp_dir)
+            except:
+                pass
+            try:
                 os.remove(temp_file_path)
             except:
                 pass
             await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
 
     except Exception as e:
+        try:
+            os.remove(VideoPath)
+        except:
+            pass
+        try:
+            os.remove(temp_dir)
+        except:
+            pass
         try:
             os.remove(temp_file_path)
         except:
@@ -347,7 +361,7 @@ async def teraBox(bot, message):
 
     finally:
         await ProcessingMsg.delete()
-        
+        shutil.rmtree(temp_dir)
         update_limit(user_id)
 
     
