@@ -320,16 +320,27 @@ async def teraBox(bot, message):
             caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
             await bot.send_video(message.chat.id, VideoPath, caption=caption)
             os.remove(VideoPath)
+            try:
+                os.remove(temp_file_path)
+            except:
+                pass
             await SendVideoMsg.delete()
         else:
             # Send the direct download link if the video exceeds the size limit
+            os.remove(VideoPath)
             try:
-                os.remove(VideoPath)
+                
+                os.remove(temp_file_path)
             except:
                 pass
             await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
 
     except Exception as e:
+        os.remove(VideoPath)
+        try:
+            os.remove(temp_file_path)
+        except:
+            pass
         await ProcessingMsg.delete()
         ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
         await asyncio.sleep(3)
