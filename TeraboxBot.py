@@ -363,6 +363,10 @@ async def teraBox(bot, message):
             os.remove(temp_file_path)
         except:
             pass
+        try:
+            await SendVideoMsg.delete()
+        except:
+             pass       
         await ProcessingMsg.delete()
         ErrorMsg = await bot.send_message(message.chat.id, f"<code>Error: {e}</code>")
         await asyncio.sleep(3)
@@ -370,6 +374,10 @@ async def teraBox(bot, message):
 
     finally:
         await ProcessingMsg.delete()
+        try:
+            await SendVideoMsg.delete()
+        except:
+             pass 
         shutil.rmtree(temp_dir)
         update_limit(user_id)
 
