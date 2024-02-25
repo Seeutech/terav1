@@ -336,7 +336,6 @@ async def teraBox(bot, message):
             await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
 
     except Exception as e:
-        os.remove(VideoPath)
         try:
             os.remove(temp_file_path)
         except:
