@@ -255,7 +255,7 @@ async def plansList(bot, message):
     msg_text = ("<b>INR PRICING \n\n10₹ - 7 days\n20₹ - 15 days\n30₹ - 24 days** \n40₹ - 30 days**\n\nCRYPTO PRICING \n\n$1 - 30 days\n</b>")
 
     inline_keyboard = ikm(
-        [[ikb("Buy Now 💰", url="https://t.me/mrxed_bot")]])
+        [[ikb("Buy Now ✅", url="https://t.me/mrxed_bot")]])
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
 @bot.on_message(filters.command('support') & filters.private)
@@ -348,7 +348,7 @@ async def teraBox(bot, message):
                 os.remove(temp_file_path)
             except:
                 pass
-            await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks Fot Patience**")
+            await bot.send_message(message.chat.id, f"**⚠️ This bot cannot upload videos more than 200mb in size on telegram. So we request you to download your video from the direct link given below 👇\n{ShortUrl}\n\nThanks For Patience**")
 
     except Exception as e:
         try:
