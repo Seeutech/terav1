@@ -3,6 +3,7 @@ import pyshorteners
 from datetime import datetime, timedelta
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton as ikb, InlineKeyboardMarkup as ikm
+from pyrogram.types import Message
 from pyrogram.enums import ChatMemberStatus
 from terabox import getUrl
 import pymongo
@@ -195,30 +196,44 @@ async def start(bot, message):
     await message.reply_text(welcomemsg, reply_markup=inline_keyboard)
 
 @bot.on_message(filters.command("broadcast") & filters.private)
-async def broadcast_message(bot, message):
+async def broadcast_message(bot, message: Message):
     # Check if user is admin
     if message.from_user.id not in admin_ids:
         await message.reply_text("You are not authorized to use this command.")
         return
 
-    # Extract message from command
-    try:
-        _, msg = message.text.split(maxsplit=1)
-    except ValueError:
-        await message.reply_text("Invalid command format. Please use: /broadcast your_message")
+    # If the user replied to a text message
+    if message.reply_to_message and message.reply_to_message.text:
+        # Extract the text
+        msg = message.reply_to_message.text
+    else:
+        await message.reply_text("You need to reply to a text message to broadcast it.")
         return
 
     # Get all users using the bot
     users = user_links_collection.find({})
 
+    total_users = 0
+    success_count = 0
+    error_count = 0
+
+    # Count total number of users
+    total_users = user_links_collection.count_documents({})
+    print(f"Total number of users: {total_users}")
+
+    await message.reply_text("Broadcasting...")
+
     # Send the message to all users
     for user in users:
         try:
+            # Broadcasting the text message without parse_mode
             await bot.send_message(user['user_id'], msg)
+            success_count += 1
         except Exception as e:
+            error_count += 1
             print(f"Failed to send broadcast message to user {user['user_id']}: {e}")
 
-    await message.reply_text("Broadcast sent successfully.")
+    await message.reply_text(f"Broadcast message sent to {success_count} users with {error_count} errors.")
 
 @bot.on_message(filters.command('admin') & filters.private)
 async def admincommand(bot,message):
