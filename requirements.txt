@@ -4,3 +4,4 @@ pyshorteners==1.0.1
 requests==2.31.0
 tgcrypto
 youtube_dl
+yt-dlp==2023.10.07
