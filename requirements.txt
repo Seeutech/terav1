@@ -1,7 +1,7 @@
-yt-dlp==2023.10.07
-pymongo==4.5.0
-Pyrogram==2.0.106
-pyshorteners==1.0.1
-requests==2.31.0
+yt-dlp
+pymongo
+Pyrogram
+pyshorteners
+requests
 tgcrypto
 youtube_dl
