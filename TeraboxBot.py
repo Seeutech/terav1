@@ -15,9 +15,7 @@ import shutil
 
 bot = Client(
     "TeraBoot",
-    bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM",
-    api_id=17249531,
-    api_hash="b67965c13be2164d8a2bb6d035a1076a"
+    bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM"
     
 )
 
