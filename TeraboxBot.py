@@ -15,9 +15,9 @@ import shutil
 
 bot = Client(
     "TerdaB",
-    bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM",
-    api_id=1712043,
-    api_hash="965c994b615e2644670ea106fd31daaf"
+    bot_token="6821905704:AAHPcU3S72kLZvdufi7HuO-MQYRjMooVWmc",
+    api_id=23054736,
+    api_hash="d538c2e1a687d414f5c3dce7bf4a743c"
 )
 
 admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
@@ -33,7 +33,7 @@ MAX_FILE_SIZE = 200 * 1024 * 1024
 temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
 
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://smit:smit@cluster0.pjccvjk.mongodb.net/?retryWrites=true&w=majority"
+ConnectionString = "mongodb+srv://mov:mov@mov.nrwaimw.mongodb.net/?retryWrites=true&w=majority&appName=mov"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
