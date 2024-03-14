@@ -1,22 +1,14 @@
-FROM python:3-slim-buster
+# Use the official Python image as base
+FROM python:3.6
 
-RUN pip3 install --upgrade pip
+# Set the working directory in the container
+WORKDIR /app
 
-ENV USER botx
-ENV HOME /home/$USER
-ENV BOT $HOME/terabox
+# Copy the current directory contents into the container at /app
+ADD . /app
 
-RUN useradd -m $USER
-RUN mkdir -p $BOT
-RUN mkdir /home/botx/terabox/downloads/
-RUN chown $USER:$USER $BOT
-RUN chown $USER:$USER /home/botx/terabox/downloads/
-USER $USER
-WORKDIR $BOT
+# Install required Python packages
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY requirements.txt requirements.txt
-RUN pip3 install --user --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD python3 TeraboxBot.py
+# Run the Python script when the container launches
+CMD ["python", "TeraboxBot.py"]
