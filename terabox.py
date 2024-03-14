@@ -4,7 +4,7 @@ import re
 
 def getUrl(url):
     s = requests.session()
-    r1 = s.get("https://teraboxdownloader.net/")
+    r1 = s.get("https://bot-nine-rho.vercel.app/")
 
     re1 = re.search(r'<input type="hidden" id="token" value="([^"]*)">', r1.text)
     if not re1:
@@ -12,7 +12,7 @@ def getUrl(url):
     token = re1.group(1)
 
     data = {"url": url, "token": token}
-    r2 = s.post("https://teraboxdownloader.net/", json=data)
+    r2 = s.post("https://bot-nine-rho.vercel.app/", json=data)
     res = r2.json()
     if (res["status"] != "success"):
         return None
