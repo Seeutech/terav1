@@ -17,8 +17,8 @@ bot = Client(
     "TeraB",
     bot_token="6912200154:AAFYNRNr7CvmTve_EFOz9mF8qYEMPpqdnsM",
     api_id=1712043,
-    api_hash="965c994b615e2644670ea106fd31daaf"
-    
+    api_hash="965c994b615e2644670ea106fd31daaf",
+    timeout=30  
 )
 
 admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
