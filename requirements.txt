@@ -1,7 +1,7 @@
 yt-dlp
-pymongo
-Pyrogram
-pyshorteners
-requests
+pymongo==4.5.0
+Pyrogram==2.0.106
+pyshorteners==1.0.1
+requests==2.31.0
 tgcrypto
 youtube_dl
