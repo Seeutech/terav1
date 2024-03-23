@@ -14,7 +14,7 @@ import shutil
 
 
 bot = Client(
-    "terao2",
+    "tera",
     bot_token="7182824305:AAG_TulrColSGD9dnn6qM0JWHCj0fbc9EO4",
     api_id=23054736,
     api_hash="d538c2e1a687d414f5c3dce7bf4a743c"
@@ -51,7 +51,7 @@ try:
 except:
     pass
 
-channel_username = "@TeleBotsUpdate"
+channel_username = "@terao2"
 
 def check_joined():
     async def func(flt, bot, message):
