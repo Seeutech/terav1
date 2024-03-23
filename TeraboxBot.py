@@ -14,13 +14,13 @@ import shutil
 
 
 bot = Client(
-    "TerdaB",
-    bot_token="6821905704:AAHPcU3S72kLZvdufi7HuO-MQYRjMooVWmc",
+    "terao2",
+    bot_token="7182824305:AAG_TulrColSGD9dnn6qM0JWHCj0fbc9EO4",
     api_id=23054736,
     api_hash="d538c2e1a687d414f5c3dce7bf4a743c"
 )
 
-admin_ids = [6121699672, 1111214141]  # Add all admin IDs here
+admin_ids = [1352497419]  # Add all admin IDs here
 shortener = pyshorteners.Shortener()
 
 # Create a temporary directory
@@ -30,10 +30,10 @@ temp_dir = tempfile.mkdtemp()
 MAX_FILE_SIZE = 200 * 1024 * 1024
 
 # Specify a temporary file path within the temporary directory
-temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
+temp_file_path = os.path.join(temp_dir, '@terao2 video.mp4')
 
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://mov:mov@mov.nrwaimw.mongodb.net/?retryWrites=true&w=majority&appName=mov"
+ConnectionString = "mongodb+srv://golive8897:CR122VPG1HMkp12p@mov.q1sd7uk.mongodb.net/?retryWrites=true&w=majority&appName=mov"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
@@ -63,10 +63,10 @@ def check_joined():
             if member_info.status in (ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER):
                 return True
             else:
-                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+                await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/terao2")]]))
                 return False
         except Exception as e:
-            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/TeleBotsUpdate")]]))
+            await bot.send_message(chat_id, join_msg , reply_markup=ikm([[ikb("✅ Join Channel", url="https://t.me/terao2")]]))
             return False
 
     return filters.create(func)
@@ -182,12 +182,12 @@ async def get_users_info(bot, message):
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
-    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @telebotsupdate**\nMade By : @mrxed_bot")
+    welcomemsg = (f"**Hello {message.from_user.first_name} 👋,\nSend me terabox links and i will download video for you.\n\nMade with ❤️ by @terao2**\nMade By : @terao2")
     inline_keyboard = ikm(
     [
         [
-            ikb("🪲 Report Bugs", url="https://t.me/telebotsupdategroup"),
-            ikb("☎️ Support Channel", url="https://t.me/TeleBotsUpdate")
+            ikb("🪲 Report Bugs", url="https://t.me/terao2"),
+            ikb("☎️ Support Channel", url="https://t.me/terao2")
         ]
     ]
 )
@@ -269,12 +269,12 @@ async def plansList(bot, message):
     msg_text = ("<b>INR PRICING \n\n10₹ - 7 days\n20₹ - 15 days\n30₹ - 24 days** \n40₹ - 30 days**\n\nCRYPTO PRICING \n\n$1 - 30 days\n</b>")
 
     inline_keyboard = ikm(
-        [[ikb("Buy Now ✅", url="https://t.me/mrxed_bot")]])
+        [[ikb("Buy Now ✅", url="https://t.me/terao2")]])
     await message.reply_text(msg_text, reply_markup=inline_keyboard)
 
 @bot.on_message(filters.command('support') & filters.private)
 async def support(bot, message):
-    ContactUs = "**Contact US** : @mrxed_bot & @mrwhite7206_bot"
+    ContactUs = "**Contact US** : @terao2 & @terao2"
     await bot.send_message(message.chat.id,ContactUs)
 
 # Function to download video using youtube-dl
@@ -323,7 +323,7 @@ async def teraBox(bot, message):
         print(ShortUrl)
         # Download the video using youtube-dl
         temp_dir = tempfile.mkdtemp()
-        temp_file_path = os.path.join(temp_dir, '@teraboxdownloader_xbot video.mp4')
+        temp_file_path = os.path.join(temp_dir, '@terao2 video.mp4')
         VideoPath = await download_video(ShortUrl, temp_file_path)
     
         # Check if the file size is below the maximum threshold
@@ -332,7 +332,7 @@ async def teraBox(bot, message):
             # Upload the video if it's below the maximum size
             await ProcessingMsg.delete()
             SendVideoMsg = await bot.send_message(message.chat.id, "📤")
-            caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @teraboxdownloader_xbot"
+            caption = f"❤️ | Here's is your Download link: {ShortUrl}\n\n⚙️ | Video Downloaded Using @terao2"
             await bot.send_video(message.chat.id, VideoPath, caption=caption)
             try:
                 os.remove(VideoPath)
