@@ -33,7 +33,7 @@ MAX_FILE_SIZE = 200 * 1024 * 1024
 temp_file_path = os.path.join(temp_dir, '@terao2 video.mp4')
 
 # Initialize MongoDB client and database
-ConnectionString = "mongodb+srv://golive8897:CR122VPG1HMkp12p@mov.q1sd7uk.mongodb.net/?retryWrites=true&w=majority&appName=mov"
+ConnectionString = "mongodb+srv://tera:tera@tera.oq2hwag.mongodb.net/?retryWrites=true&w=majority&appName=tera"
 client = pymongo.MongoClient(ConnectionString)
 db = client["terabox"]
 user_links_collection = db["user_links"]
