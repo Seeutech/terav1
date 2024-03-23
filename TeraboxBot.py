@@ -15,7 +15,7 @@ import shutil
 
 bot = Client(
     "tera",
-    bot_token="7182824305:AAG_TulrColSGD9dnn6qM0JWHCj0fbc9EO4",
+    bot_token="7182824305:AAEm7g28hhrwo4nBS9zEUK1NY-EOdD6Laa4",
     api_id=23054736,
     api_hash="d538c2e1a687d414f5c3dce7bf4a743c"
 )
